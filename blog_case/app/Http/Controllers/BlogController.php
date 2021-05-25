@@ -6,19 +6,23 @@ use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
+use App\Models\Category;
+
 
 class BlogController extends Controller
 {
 
     public function index()
     {
-        $blogs = Blog::all();
-        return view('backend.blog.list',compact('blogs'));
+        $blogs = Blog::orderBy('id','DESC')->paginate(5);
+        $categories = Category::all();
+        return view('backend.blog.list',compact('blogs','categories'));
     }
 
     public function create()
     {
-        return view('backend.blog.create');
+        $categories = Category::all();
+        return view('backend.blog.create',compact('categories'));
     }
 
     public function store(Request $request)
@@ -35,8 +39,9 @@ class BlogController extends Controller
         }
 
         $blog->content = $request->input('content');
-        $blog->author = $request->input('author');
+        $blog->source = $request->input('source');
         $blog->created = $request->input('created');
+        $blog->category_id = $request->input('category_id');
         $blog->save();
 
         //dung session de dua ra thong bao
@@ -50,8 +55,9 @@ class BlogController extends Controller
     {
         
         $blog = Blog::findOrFail($id);
-        $blogs = Blog::all();
-        return view('backend.blog.edit',compact('blog','blogs'));
+        $blogs = Blog::orderBy('id','DESC')->paginate(5);
+        $categories = Category::all();
+        return view('backend.blog.edit',compact('blog','blogs','categories'));
     }
 
     public function update(Request $request, $id)
@@ -74,14 +80,14 @@ class BlogController extends Controller
         }
 
         $blog->content = $request->input('content');
-        $blog->author = $request->input('author');
+        $blog->source = $request->input('source');
         $blog->created = $request->input('created');
+        $blog->category_id = $request->input('category_id');
         $blog->save();
 
         //dung session de dua ra thong bao
         Session::flash('success', 'Update success!');
-        //tao moi xong quay ve trang danh sach blog
-        return route('blog.edit');
+        return redirect()->route('blog.edit', $id);
 
     }
 
@@ -107,5 +113,10 @@ class BlogController extends Controller
         Session::flash('success', 'Delete success!');
         //xoa xong quay ve trang danh sach task
         return redirect()->route('blog.index');
+    }
+
+    public function detail($id){
+        $blog = Blog::findOrFail($id);
+        return view('backend.blog.detail',compact('blog'));
     }
 }

@@ -45,9 +45,19 @@
                         <div class="form-row">
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
-                                    <label for="author" class="col col-form-label">Author</label>
+                                    <label for="category_id" class="col col-form-label">Category</label>
                                     <div class="col">
-                                        <input name="author" id="author" placeholder="author" type="text"
+                                        <select id="category_id" class="form-control" name="category_id">
+                                            @foreach($categories as $category)
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="position-relative form-group">
+                                    <label for="source" class="col col-form-label">Source</label>
+                                    <div class="col">
+                                        <input name="source" id="source" placeholder="source" type="text"
                                             class="form-control" required>
                                     </div>
                                 </div>

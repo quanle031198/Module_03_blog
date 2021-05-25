@@ -47,12 +47,24 @@
                         <div class="form-row">
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
-                                    <label for="author" class="col col-form-label">Author</label>
+                                    <label for="category_id" class="col col-form-label">Category</label>
                                     <div class="col">
-                                        <input name="author" id="author" placeholder="author" type="text"
-                                            value="{{ $blog->author }}" class="form-control">
+                                        <select class="form-control" name="category_id" id="category_id">
+                                            @foreach ($categories as $category)
+                                                <option @if ($blog->category_id == $category->id) {{ 'selected' }} @endif
+                                                    value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
+                                <div class="position-relative form-group">
+                                    <label for="source" class="col col-form-label">Source</label>
+                                    <div class="col">
+                                        <input name="source" id="source" placeholder="source" type="text"
+                                            value="{{ $blog->source }}" class="form-control">
+                                    </div>
+                                </div>
+
                             </div>
 
                             <div class="col-md-5">
@@ -70,7 +82,7 @@
                             <div class="col-sm-10">
                                 <button type="submit" class="mb-2 mr-2 btn btn-primary">Update</button>
                                 <button class="mb-2 mr-2 btn-transition btn btn-outline-danger"
-                                onclick="history.go(-1); return false;">Cancel</button>
+                                    onclick="history.go(-1); return false;">Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -90,7 +102,7 @@
                         <th>Title</th>
                         <th>Summary</th>
                         <th>Image summary</th>
-                        <th>Author</th>
+                        <th>Source</th>
                         <th>Tool</th>
                     </tr>
                 </thead>
@@ -105,6 +117,7 @@
                                 <th scope="row">{{ ++$key }}</th>
                                 <td>{{ $blog->title }}</td>
                                 <td>{{ $blog->summary }}</td>
+
                                 <td>
                                     @if ($blog->summary_img)
                                         <img src="{{ asset('storage/' . $blog->summary_img) }}" alt=""
@@ -113,7 +126,7 @@
                                         {{ 'Chưa có ảnh' }}
                                     @endif
                                 </td>
-                                <td>{{ $blog->author }}</td>
+                                <td>{{ $blog->source }}</td>
                                 <td><a href="{{ route('blog.edit', $blog->id) }}"><i class="nav-link-icon"></i>Edit</a> |
                                     <a href="{{ route('blog.delete', $blog->id) }}"><i
                                             class="ti-trash text-danger"></i>Delete</a>

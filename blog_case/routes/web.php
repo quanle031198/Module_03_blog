@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,4 +27,15 @@ Route::prefix('blog')->group(function () {
     Route::post('/{id}/edit',[BlogController::class,'update'])->name('blog.update');
     Route::get('/{id}/delete',[BlogController::class,'delete'])->name('blog.delete');
     Route::post('/{id}/delete',[BlogController::class,'destroy'])->name('blog.destroy');
+    Route::get('/{id}/detail',[BlogController::class,'detail'])->name('blog.detail');
+});
+
+Route::prefix('category')->group(function () {
+    Route::get('/',[CategoryController::class,'index'])->name('category.index');
+    // Route::get('/create',[BlogController::class,'create'])->name('blog.create');
+    // Route::post('/create',[BlogController::class,'store'])->name('blog.store');
+    // Route::get('/{id}/edit',[BlogController::class,'edit'])->name('blog.edit');
+    // Route::post('/{id}/edit',[BlogController::class,'update'])->name('blog.update');
+    // Route::get('/{id}/delete',[BlogController::class,'delete'])->name('blog.delete');
+    // Route::post('/{id}/delete',[BlogController::class,'destroy'])->name('blog.destroy');
 });

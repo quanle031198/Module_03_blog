@@ -31,10 +31,10 @@
                             </div>
                         </div>
                         <div class="position-relative form-group">
-                            <label for="author" class="col col-form-label">Author</label>
+                            <label for="source" class="col col-form-label">Source</label>
                             <div class="col-sm-8">
-                                <input disabled name="author" id="author" placeholder="author" type="text"
-                                    value="{{ $blog->author }}" class="form-control">
+                                <input disabled name="source" id="source" placeholder="source" type="text"
+                                    value="{{ $blog->source }}" class="form-control">
                             </div>
                         </div>
                         <div class="position-relative form-group">
