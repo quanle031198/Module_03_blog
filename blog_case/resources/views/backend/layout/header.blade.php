@@ -40,7 +40,7 @@
                 </div>
                 <button class="close"></button>
             </div>
-            <ul class="header-menu nav">
+            {{-- <ul class="header-menu nav">
                 <li class="nav-item">
                     <a href="javascript:void(0);" class="nav-link">
                         <i class="nav-link-icon fa fa-database"> </i>
@@ -59,7 +59,7 @@
                         Settings
                     </a>
                 </li>
-            </ul>
+            </ul> --}}
         </div>
         <div class="app-header-right">
             <div class="header-btn-lg pr-0">
@@ -93,12 +93,7 @@
                                 VP People Manager
                             </div>
                         </div>
-                        <div class="widget-content-right header-user-info ml-3">
-                            <button type="button"
-                                class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
-                                <i class="fa text-white fa-calendar pr-1 pl-1"></i>
-                            </button>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

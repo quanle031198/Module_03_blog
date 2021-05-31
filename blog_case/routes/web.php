@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CKEditorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,8 @@ Route::prefix('blog')->group(function () {
     Route::get('/{id}/delete',[BlogController::class,'delete'])->name('blog.delete');
     Route::post('/{id}/delete',[BlogController::class,'destroy'])->name('blog.destroy');
     Route::get('/{id}/detail',[BlogController::class,'detail'])->name('blog.detail');
+    Route::get('/search',[BlogController::class,'search'])->name('blog.search');
+    Route::get('/filter',[BlogController::class,'filterByCategory'])->name('blog.filter');
 });
 
 Route::prefix('category')->group(function () {

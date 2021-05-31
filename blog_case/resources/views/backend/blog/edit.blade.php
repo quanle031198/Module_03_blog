@@ -17,33 +17,16 @@
                     <div class="col-md-5">
                         <div class="position-relative form-group">
                             <div class="col-sm-10">
-                                <img class="img-thumbnail" alt="Responsive image"
-                                    src="{{ asset('storage/' . $blog->summary_img) }}" />
-                                <input name="summary_img" id="summary_img" type="file" class="form-control-file" />
+                                <div class="avatar-edit">
+                                    <input name="summary_img" type='file' id="summary_img"/>
+                                    <label class="fa fa-upload lb-up" for="summary_img"></label>
+                                </div>
+                                <div class="avatar-preview">
+                                    <div id="imagePreview" style="background-image: url({{ asset('storage/' . $blog->summary_img) }});">
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-7">
-                        <div class="position-relative form-group">
-                            <label for="title" class="col-sm-2 col-form-label">Title</label>
-                            <div class="col-sm-10">
-                                <input name="title" id="title" placeholder="Title" type="text" value="{{ $blog->title }}"
-                                    class="form-control">
-                            </div>
-                        </div>
-                        <div class="position-relative form-group">
-                            <label for="summary" class="col-sm-2 col-form-label">Summary</label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" name="summary" id="summary">{{ $blog->summary }}</textarea>
-                            </div>
-                        </div>
-                        <div class="position-relative form-group">
-                            <label for="content" class="col-sm-2 col-form-label">Content</label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" name="content" id="content">{{ $blog->content }}</textarea>
-                            </div>
-                        </div>
-
                         <div class="form-row">
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
@@ -77,12 +60,36 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="position-relative form-group">
                             <div class="col-sm-10">
+
+                                <a class="mb-2 mr-2 btn-transition btn btn-outline-danger"
+                                    href="{{ route('blog.index') }}"><i class="pe-7s-back"></i>
+                                    Back</a>
                                 <button type="submit" class="mb-2 mr-2 btn btn-primary">Update</button>
-                                <button class="mb-2 mr-2 btn-transition btn btn-outline-danger"
-                                    onclick="history.go(-1); return false;">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="position-relative form-group">
+                            <label for="title" class="col-sm-2 col-form-label">Title</label>
+                            <div class="col-sm-10">
+                                <input name="title" id="title" placeholder="Title" type="text" value="{{ $blog->title }}"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="position-relative form-group">
+                            <label for="summary" class="col-sm-2 col-form-label">Summary</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" name="summary"
+                                    id="summary">{{ $blog->summary }}</textarea>
+                            </div>
+                        </div>
+                        <div class="position-relative form-group">
+                            <label for="content" class="col-sm-2 col-form-label">Content</label>
+                            <div class="col-sm-10">
+                                <textarea class="ckeditor form-control" name="content"
+                                    id="content">{!! $blog->content !!}</textarea>
                             </div>
                         </div>
                     </div>
@@ -127,15 +134,45 @@
                                     @endif
                                 </td>
                                 <td>{{ $blog->source }}</td>
-                                <td><a href="{{ route('blog.edit', $blog->id) }}"><i class="nav-link-icon"></i>Edit</a> |
-                                    <a href="{{ route('blog.delete', $blog->id) }}"><i
-                                            class="ti-trash text-danger"></i>Delete</a>
+                                <td><a class="mb-2 mr-2 btn btn-secondary" href="{{ route('blog.edit', $blog->id) }}"><i
+                                            class="pe-7s-file"></i> Edit</a>
+                                    <a class="mb-2 mr-2 btn btn-secondary"
+                                        href="{{ route('blog.delete', $blog->id) }}"><i class="pe-7s-trash "></i>
+                                        Delete</a>
                                 </td>
                             </tr>
                         @endforeach
                     @endif
                 </tbody>
             </table>
+            {{-- <div class="d-flex justify-content-center">
+                
+            </div> --}}
+            <div class="card-body">
+                <nav class="d-flex justify-content-center" aria-label="Page navigation example ">
+                    <ul class="pagination">
+                        {!! $blogs->links('pagination::bootstrap-4') !!}
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+                    $('#imagePreview').hide();
+                    $('#imagePreview').fadeIn(650);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#summary_img").change(function() {
+            readURL(this);
+        });
+        </script>
+   
 @endsection
